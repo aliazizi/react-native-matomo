@@ -5,8 +5,8 @@ android {
     buildToolsVersion "25.0.2"
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 25
+        minSdkVersion safeExtGet('compileSdkVersion', 16)
+        targetSdkVersion safeExtGet('targetSdkVersion', 25)
         versionCode 1
         versionName "1.0"
         ndk {
@@ -18,4 +18,8 @@ android {
 dependencies {
     implementation "com.facebook.react:react-native:+"
     implementation 'org.matomo.sdk:tracker:4.0.1'
+}
+
+def safeExtGet(prop, fallback) {
+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
 }
